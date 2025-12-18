@@ -29,7 +29,7 @@
             label = "LAYER_TAP_DANCE";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            bindings = <&mo 1>, <&to 1>;
+            bindings = <&mo 5>, <&to 5>;
         };
 
         magic: magic_hold_tap {
@@ -91,6 +91,27 @@
             bindings = <&kp LPAR &kp RPAR &kp LEFT>;
             label = "AUTO_PAREN";
         };
+
+        auto_brace: auto_brace {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LEFT_BRACE &kp RIGHT_BRACE &kp LEFT>;
+            label = "AUTO_BRACE";
+        };
+
+        auto_brack: auto_brack {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LBKT &kp RBKT &kp LEFT>;
+            label = "AUTO_BRACK";
+        };
+
+        auto_literal: auto_literal {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp DOLLAR &kp LEFT_BRACE &kp RIGHT_BRACE &kp LEFT>;
+            label = "AUTO_LITERAL";
+        };
     };
 
     keymap {
@@ -106,12 +127,45 @@
             // | MAGIC | HOME| END | LEFT | RIGHT|      | BSPC  | DEL   | LALT  | | RALT  | RET   | SPACE |      |  UP   | DOWN  |  [   |   ]   | PGDN |
 
             bindings = <
-&kp F1      &kp F2    &kp F3   &kp F4    &kp F5                                                                                        &kp F6  &kp F7     &kp F8    &kp F9    &kp F10
-&kp EQUAL   &kp N1    &kp N2   &kp N3    &kp N4     &kp N5                                                                     &kp N6  &kp N7  &kp N8     &kp N9    &kp N0    &kp MINUS
-&kp TAB     &kp Q     &kp W    &kp F     &kp P      &kp B                                                                      &kp J   &kp L   &kp U      &kp Y     &kp P     &kp BSLH
-&kp ESC     &kp A     &kp R    &kp S     &kp T      &kp G                                                                      &kp M   &kp N   &kp E      &kp I     &kp SEMI  &kp SQT
-&kp GRAVE   &kp Z     &kp X    &kp C     &kp D      &kp V   &kp LSHFT  &kp LCTRL  &layer_td  &kp LGUI  &kp RCTRL  &kp RSHFT    &kp K   &kp H   &kp COMMA  &kp DOT   &kp FSLH  &kp PG_UP
-&magic 2 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT          &kp BSPC   &kp DEL    &kp LALT   &kp RALT  &kp RET    &lt 1 SPACE          &kp UP  &kp DOWN   &kp LBKT  &kp RBKT  &kp PG_DN
+&kp F1      &kp F2    &kp F3   &kp F4    &kp F5                                                                                              &kp F6  &kp F7     &kp F8    &kp F9    &kp F10
+&kp EQUAL   &kp N1    &kp N2   &kp N3    &kp N4     &kp N5                                                                           &kp N6  &kp N7  &kp N8     &kp N9    &kp N0    &kp MINUS
+&kp TAB     &kp Q     &kp W    &kp F     &kp P      &kp B                                                                            &kp J   &kp L   &kp U      &kp Y     &kp SEMI  &kp BSLH
+&kp ESC     &kp A     &kp R    &kp S     &kp T      &kp G                                                                            &kp M   &kp N   &kp E      &kp I     &kp O     &kp SQT
+&kp GRAVE   &kp Z     &kp X    &kp C     &kp D      &kp V   &kp LSHFT    &kp LCTRL      &layer_td  &kp LGUI  &kp RCTRL  &kp RSHFT    &kp K   &kp H   &kp COMMA  &kp DOT   &kp FSLH  &kp PG_UP
+&magic 6 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT          &lt 1 SPACE  &kp BACKSPACE  &kp LALT   &kp RALT  &kp RET    &lt 2 SPACE          &kp UP  &kp DOWN   &kp LBKT  &kp RBKT  &kp PG_DN
+            >;
+        };
+
+        lower {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans                                                                         &trans       &trans       &trans       &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                                                  &trans         &trans       &trans       &trans       &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                                                  &auto_literal  &auto_paren  &auto_brace  &auto_brack  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                                                  &kp LEFT       &kp DOWN     &kp UP       &kp RIGHT    &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans         &trans       &trans       &trans       &trans  &trans
+&trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans  &trans                 &trans       &trans       &trans       &trans  &trans
+            >;
+        };
+
+        raise {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans                                                                   &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                                                   &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                                                   &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                                                   &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans   &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans          &trans  &kp DEL  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans
+            >;
+        };
+
+        adjust {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans                                                                  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans
             >;
         };
 
